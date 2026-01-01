@@ -1,0 +1,41 @@
+export default {
+  filterForm: {
+    platform: '平台',
+    platformPlaceholder: '请选择平台搜索',
+    customer: '客户',
+    customerPlaceholder: '请输入客户电子邮箱/手机号码搜索',
+    pay_status: '付款状态',
+    payStatusPlaceholder: '请选择付款状态'
+  },
+  pay_status: {
+    pendding_pay: '待付款',
+    part_paid: '部分付款',
+    paid: '已付款',
+  },
+  table: {
+    number: '订单编号',
+    company: '所属主体',
+    customer: '客户名称',
+    email: '客户电子邮箱',
+    telephone: '客户手机号码',
+    platform: '销售平台',
+    platform_order_id: '销售平台订单号',
+    type: '订单类型',
+    total: '订单总金额',
+    currency: '币种',
+    order_status: '订单状态',
+    pay_status: '支付状态',
+    pay_method: '支付方式',
+    warehouse_status: '出库状态',
+    shipping_status: '物流状态',
+    shipping_method: '物流/快递方式',
+    shipping_number: '物流/快递单号',
+    need_customs_declaration: '是否需要报关',
+    need_fapiao: '是否需要开发票',
+    note: '备注',
+    creator: '制单人',
+    created_at: '创建时间',
+    updated_at: '最后更新时间',
+    operate: '操作',
+  }
+}

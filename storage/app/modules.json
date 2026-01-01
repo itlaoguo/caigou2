@@ -1,0 +1,42 @@
+[
+    {
+        "title": "权限管理",
+        "name": "permissions",
+        "path": "permissions",
+        "keywords": "权限, 角色, 部门",
+        "description": "权限管理模块",
+        "provider": "\\Modules\\Permissions\\Providers\\PermissionsServiceProvider",
+        "version": "1.0.0",
+        "enable": true
+    },
+    {
+        "title": "基础数据管理",
+        "path": "base",
+        "keywords": "base",
+        "description": "基础数据管理，例如语言、国家、平台等",
+        "name": "base",
+        "provider": "\\Modules\\Base\\Providers\\BaseServiceProvider",
+        "version": "1.0.0",
+        "enable": true
+    },
+    {
+        "title": "会员管理",
+        "path": "customer",
+        "keywords": "customer",
+        "description": "会员模块",
+        "name": "customer",
+        "provider": "\\Modules\\Customer\\Providers\\CustomerServiceProvider",
+        "version": "1.0.0",
+        "enable": true
+    },
+    {
+        "title": "订单管理",
+        "path": "order",
+        "keywords": "Order",
+        "description": "订单管理",
+        "name": "order",
+        "provider": "\\Modules\\Order\\Providers\\OrderServiceProvider",
+        "version": "1.0.0",
+        "enable": true
+    }
+]

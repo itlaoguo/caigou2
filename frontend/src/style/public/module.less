@@ -1,0 +1,96 @@
+.t-is-head-menu {
+  margin-left: 29px !important;
+}
+
+// 公共样式 - title栏
+.NavigationTitle {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  margin: 0 0 30px;
+  cursor: pointer;
+
+  // &:hover::after {
+  //   content: "点击可返回";
+  //   position: absolute;
+  //   left: 150px; // 根据实际布局调整
+  // }
+
+  p {
+    width: 4px;
+    height: 18px;
+    background: #409eff;
+    margin-right: 10px;
+  }
+}
+
+// 公共样式 - 表格头部
+.t-table__header--fixed:not(.t-table__header--multiple)>tr>th {
+  background-color: #125be2 !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+}
+
+// 公共样式 - 分页总数
+.t-pagination__total {
+  font-size: 16px !important;
+}
+
+// 公共样式 - 空页面
+.list-common-add {
+  height: 100%;
+  background: #fff;
+}
+
+// 图片处理
+/* 隐藏查看层 */
+.tdesign-demo-image-viewer__ui-image--hover {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* 鼠标悬停时显示查看层 */
+.tdesign-demo-image-viewer__ui-image:hover .tdesign-demo-image-viewer__ui-image--hover {
+  display: flex;
+}
+
+/* 图片悬停效果 */
+.tdesign-demo-image-viewer__ui-image:hover .tdesign-demo-image-viewer__ui-image--img {
+  filter: grayscale(100%) brightness(0.5);
+  transition: filter 0.3s ease;
+}
+
+/* 父容器设置相对定位 */
+.tdesign-demo-image-viewer__ui-image {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 4px;
+  /* 可选圆角效果 */
+}
+
+/* 图片基础样式 */
+.tdesign-demo-image-viewer__ui-image--img {
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.t-divider--with-text::before,
+.t-divider--with-text::after {
+  border: 2px solid #409eff !important;
+}
+
+// form表单按钮位置
+.form-submit-container {
+   text-align: right !important;
+}
