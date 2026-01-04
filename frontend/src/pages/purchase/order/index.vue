@@ -1,5 +1,5 @@
 <template>
-  <div class="list-common-table">
+  <div class="list-common-table" style="min-height: calc(100vh - 130px);">
     <div class="form-item-content">
       <t-form ref="form" :data="searchParameter" :label-width="80" colon @reset="onReset" @submit="onSubmit"
         class="form-item-content">
@@ -7,19 +7,20 @@
           <t-col :span="12">
             <t-row :gutter="[24, 24]">
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.customer')" name="customer">
-                  <t-input v-model="searchParameter.name" type="search"
-                    :placeholder="t('pages.orderList.filterForm.customerPlaceholder')" :style="{ minWidth: '134px' }" />
+                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_number')" name="customer">
+                  <t-input v-model="searchParameter.purchaseNumber" type="search"
+                    :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
+                    :style="{ minWidth: '134px' }" />
                 </t-form-item>
               </t-col>
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.platform')" name="platform">
+                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_number')" name="platform">
                   <t-select v-model="searchParameter.platform" style="display: inline-block" :options="platforms"
                     :placeholder="t('pages.orderList.filterForm.platformPlaceholder')" clearable />
                 </t-form-item>
               </t-col>
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.pay_status')" name="pay_status">
+                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_number')" name="pay_status">
                   <t-select v-model="searchParameter.payStatus" style="display: inline-block" :options="PAY_STATUS"
                     :placeholder="t('pages.orderList.filterForm.payStatusPlaceholder')" clearable />
                 </t-form-item>
@@ -75,7 +76,7 @@ import { t } from '@/locales';
 import { PageInfo, PrimaryTableCol, TableRowData, TableProps } from 'tdesign-vue-next';
 import { getList as getOrderList } from '@/api/order/index';
 import { getAll as getAllPlatForms } from '@/api/platform/index';
-import { searchParameter } from "@/api/model/orderModel";
+import { searchParameter } from "@/api/model/purchaseOrderModel";
 
 
 //搜索表单
@@ -86,9 +87,11 @@ const PAY_STATUS = [
 ]
 
 const searchParameter = ref<searchParameter>({
-  name: '',
-  platform: '',
-  payStatus: '',
+  purchaseNumber: '',
+  purchaseName: '',
+  purchaseStatus: 1,
+  purchaseStartedAt: '',
+  purchaseEndedAt: '',
   page: 1,
   pageSize: 20,
   sortBy: 'created_at',
@@ -97,9 +100,11 @@ const searchParameter = ref<searchParameter>({
 
 const onReset = async () => {
   searchParameter.value = {
-    name: '',
-    platform: '',
-    payStatus: '',
+    purchaseNumber: '',
+    purchaseName: '',
+    purchaseStatus: 1,
+    purchaseStartedAt: '',
+    purchaseEndedAt: '',
     page: 1,
     pageSize: 20,
     sortBy: 'created_at',

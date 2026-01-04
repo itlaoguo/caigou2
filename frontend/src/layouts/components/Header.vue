@@ -33,11 +33,11 @@
               <t-icon name="help-circle" />
             </t-button>
           </t-tooltip> -->
-          <t-tooltip placement="bottom" content="官方网站">
-            <t-button theme="default" shape="square" variant="text" @click="navToHelper">
-              <t-icon name="logo-twitter" />
-            </t-button>
-          </t-tooltip>
+<!--          <t-tooltip placement="bottom" content="官方网站">-->
+<!--            <t-button theme="default" shape="square" variant="text" @click="navToHelper">-->
+<!--              <t-icon name="logo-twitter" />-->
+<!--            </t-button>-->
+<!--          </t-tooltip>-->
           <!-- <t-dropdown trigger="click">
             <t-button theme="default" shape="square" variant="text">
               <translate-icon />
@@ -66,11 +66,11 @@
               <template #suffix><chevron-down-icon /></template>
             </t-button>
           </t-dropdown>
-          <t-tooltip placement="bottom" :content="t('layout.header.setting')">
-            <t-button theme="default" shape="square" variant="text" @click="toggleSettingPanel">
-              <setting-icon />
-            </t-button>
-          </t-tooltip>
+<!--          <t-tooltip placement="bottom" :content="t('layout.header.setting')">-->
+<!--            <t-button theme="default" shape="square" variant="text" @click="toggleSettingPanel">-->
+<!--              <setting-icon />-->
+<!--            </t-button>-->
+<!--          </t-tooltip>-->
         </div>
       </template>
     </t-head-menu>

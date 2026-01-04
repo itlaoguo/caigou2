@@ -1,75 +1,19 @@
 <template>
-  <div class="list-common-table">
-    <div class="form-item-content">
-      <t-form ref="form" :data="searchParameter" :label-width="80" colon @reset="onReset" @submit="onSubmit"
-        class="form-item-content">
-        <t-row>
-          <t-col :span="12">
-            <t-row :gutter="[24, 24]">
-              <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.customer')" name="customer">
-                  <t-input v-model="searchParameter.name" type="search"
-                    :placeholder="t('pages.orderList.filterForm.customerPlaceholder')" :style="{ minWidth: '134px' }" />
-                </t-form-item>
-              </t-col>
-              <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.platform')" name="platform">
-                  <t-select v-model="searchParameter.platform" style="display: inline-block" :options="platforms"
-                    :placeholder="t('pages.orderList.filterForm.platformPlaceholder')" clearable />
-                </t-form-item>
-              </t-col>
-              <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.orderList.filterForm.pay_status')" name="pay_status">
-                  <t-select v-model="searchParameter.payStatus" style="display: inline-block" :options="PAY_STATUS"
-                    :placeholder="t('pages.orderList.filterForm.payStatusPlaceholder')" clearable />
-                </t-form-item>
-              </t-col>
-
-              <t-col :xxl="4" :xl="1" :xs="0" />
-
-              <t-col :xxl="2" :xl="2" :xs="6" class="operation-container">
-                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">
-                  {{ t('components.commonTable.query') }}
-                </t-button>
-                <t-button type="reset" variant="base" theme="default"> {{ t('components.commonTable.reset') }}
-                </t-button>
-              </t-col>
-            </t-row>
-          </t-col>
-        </t-row>
-      </t-form>
-      <div class="table-container">
-        <t-table :data="data" :columns="COLUMNS" :pagination="pagination" :selected-row-keys="selectedRowKeys"
-          row-key="order_id" :loading="dataLoading" @page-change="rehandlePageChange">
-
-          <template #total="{ row }">
-            {{ row.currency }}&nbsp;{{ row.total }}
-          </template>
-
-          <template #op="slotProps">
-            <t-space>
-              <t-link theme="primary" @click="handleClickDetail(slotProps)"> {{ t('pages.listBase.detail') }}</t-link>
-            </t-space>
-          </template>
-        </t-table>
-
-        <!--  详情 -->
-        <orderDetail ref="orderDetailRef" />
-      </div>
-    </div>
+  <div class="list-common-table" style="min-height: calc(100vh - 130px);">
+    
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'customerList',
+  name: 'orderCreate',
 }
 </script>
 
 <script setup lang="ts">
-import orderDetail from "../components/detail.vue";
 import { computed, onMounted, ref } from 'vue';
 import { t } from '@/locales';
+
 import { PageInfo, PrimaryTableCol, TableRowData, TableProps } from 'tdesign-vue-next';
 import { getList as getOrderList } from '@/api/order/index';
 import { getAll as getAllPlatForms } from '@/api/platform/index';
@@ -261,24 +205,7 @@ onMounted(() => {
   })
 });
 
-const fetchData = async (parameters: searchParameter) => {
-  dataLoading.value = true;
-  try {
-    const result = await getOrderList(parameters);
-    console.log('===============fetchData获取订单列表=================', result)
-    data.value = result.data.items;
-    pagination.value = {
-      defaultPageSize: result.data.pageSize,
-      total: result.data.total,
-      defaultCurrent: result.data.currentPage,
-    }
 
-  } catch (e) {
-    console.log(e);
-  } finally {
-    dataLoading.value = false;
-  }
-};
 
 </script>
 
@@ -293,23 +220,5 @@ const fetchData = async (parameters: searchParameter) => {
   }
 }
 
-.form-item-content {
-  width: 100%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-}
 
-.operation-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  .expand {
-    .t-button__text {
-      display: flex;
-      align-items: center;
-    }
-  }
-}
 </style>

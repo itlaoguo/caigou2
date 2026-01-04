@@ -1,15 +1,6 @@
 <template>
   <header class="login-header">
-    <img src="http://jxj.zhgdyun.com:15551/image/67f712d501fdb41366cc1a23.png" alt="" width="180">
     <div class="operations-container">
-      <t-tooltip placement="bottom" content="官方网站">
-        <t-button theme="default" shape="square" variant="text" @click="navToHelper">
-          <t-icon name="logo-twitter" />
-        </t-button>
-      </t-tooltip>
-      <t-button theme="default" shape="square" variant="text" @click="toggleSettingPanel">
-        <t-icon name="setting" class="icon" />
-      </t-button>
     </div>
   </header>
 </template>

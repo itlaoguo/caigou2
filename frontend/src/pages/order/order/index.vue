@@ -1,5 +1,5 @@
 <template>
-  <div class="list-common-table">
+  <div class="list-common-table" style="min-height: calc(100vh - 130px);">
 
     <div class="form-item-content">
       <t-form ref="form" :data="searchParameter" :label-width="80" colon @reset="onReset" @submit="onSubmit"
