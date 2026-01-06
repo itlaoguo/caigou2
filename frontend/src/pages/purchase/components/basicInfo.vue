@@ -2,7 +2,7 @@
   <div class="main">
     <t-row>
       <t-col :span="24">
-        <t-form ref="form" :data="baseInfo" colon @reset="onReset" @submit="onSubmit">
+        <t-form ref="form" style="width: 100%;" :data="baseInfo" colon @reset="onReset" @submit="onSubmit">
           <t-form-item label="商品录入方式">
             <t-radio-group default-value="1" @change="onChange">
               <t-radio value="1">excel录入</t-radio>
@@ -15,8 +15,6 @@
           <t-form-item label="任务描述">
             <t-textarea v-model="value" placeholder="请输入任务描述" autosize name="description" @change="onChange" />
           </t-form-item>
-
-
         </t-form>
       </t-col>
     </t-row>
