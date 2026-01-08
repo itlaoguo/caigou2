@@ -1,9 +1,6 @@
 <template>
   <div class="list-common-table" style="min-height: calc(100vh - 130px);">
-
-
     <div class="form-item-content">
-
       <t-steps :current="currentStep" readonly>
         <t-step-item title="创建采购单" content="选择导入方式和基本配置" />
         <t-step-item title="导入excel" content="按照模板导入表单" />
@@ -14,9 +11,7 @@
         <UploadInfo v-if="currentStep === 1" @next="next" @prev="prev" />
         <ProductList v-if="currentStep === 2" @prev="prev" @reset="reset" />
       </t-row>
-
     </div>
-
   </div>
 </template>
 
