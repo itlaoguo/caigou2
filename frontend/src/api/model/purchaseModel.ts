@@ -1,3 +1,16 @@
+export interface ListResult {
+  code: number;
+  data: {
+    items: Array<PurchaseOrderModel>,
+    currentPage: number,
+    lastPage: number,
+    pageSize: number,
+    total: number,
+    totalPage: number,
+  };
+  message: string;
+}
+
 export interface PurchaseOrderModel {
   id?: number;
   number?: string;
@@ -7,7 +20,7 @@ export interface PurchaseOrderModel {
   updated_at?: string;
 }
 
-export interface searchParameter {
+export type SearchParameter = {
   purchaseNumber?: string;
   purchaseName?: string;
   purchaseStatus?: number;

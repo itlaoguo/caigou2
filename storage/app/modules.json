@@ -30,6 +30,16 @@
         "enable": true
     },
     {
+        "title": "采购管理",
+        "path": "purchase",
+        "keywords": "Purchase",
+        "description": "采购管理",
+        "name": "order",
+        "provider": "\\Modules\\Purchase\\Providers\\PurchaseServiceProvider",
+        "version": "1.0.0",
+        "enable": true
+    },
+    {
         "title": "订单管理",
         "path": "order",
         "keywords": "Order",

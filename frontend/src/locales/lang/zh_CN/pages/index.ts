@@ -16,6 +16,7 @@ import login from './login';
 import marketingList from './marketing-list';
 import orderDetail from './order-detail';
 import orderList from './order-list';
+import purchaseOrder from './purchase-order';
 import result from './result';
 import user from './user';
 
@@ -37,6 +38,7 @@ export default {
   formStep,
   orderList,
   orderDetail,
+  purchaseOrder,
   user,
   login,
   result,

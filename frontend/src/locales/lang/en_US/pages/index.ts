@@ -11,6 +11,7 @@ import listCard from './list-card';
 import listFilter from './list-filter';
 import listTree from './list-tree';
 import login from './login';
+import purchaseOrder from './purchase-order';
 import result from './result';
 import user from './user';
 
@@ -29,5 +30,6 @@ export default {
   formStep,
   user,
   login,
+  purchaseOrder,
   result,
 };
