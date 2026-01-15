@@ -1,4 +1,4 @@
-import type { ListResult, PurchaseOrderModel, searchParameter } from '@/api/model/purchaseModel';
+import type { ListResult, PurchaseOrderModel, SearchParameter } from '@/api/model/purchaseModel';
 import { request } from '@/utils/request';
 
 export function add(data: any) {
@@ -23,7 +23,7 @@ export function update(data: any, id: any) {
   });
 }
 
-export function list(parameters: searchParameter) {
+export function list(parameters: SearchParameter) {
   return request.get<ListResult>({
     url: '/purchase/order',
     params: parameters
