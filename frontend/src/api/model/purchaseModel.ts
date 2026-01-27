@@ -39,9 +39,11 @@ export interface BaseInfo {
 }
 
 export interface UploadInfo {
-  file: string
-  path: string
-  url: string
+  name?: string;
+  path?: string;
+  url?: string;
+  size?: number;
+  uploadTime?: string;
 }
 
 export interface Product {

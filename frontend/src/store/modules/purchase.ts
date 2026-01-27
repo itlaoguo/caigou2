@@ -14,9 +14,11 @@ export const usePurchaseStore = defineStore('purchase', {
 
       // 上传信息
       uploadInfo: {
-        file: '',
+        name: '',
+        url: '',
+        size: 0,
+        uploadTime: '',
         path: '',
-        url: ''
       } as UploadInfo,
 
       // 商品信息

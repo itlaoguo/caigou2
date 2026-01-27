@@ -1,5 +1,48 @@
 <template>
   <div class="main">
+    <t-form ref="form" :data="searchParameter" label-width="120px">
+      <t-row>
+        <t-col :span="12">
+          <t-row :gutter="[24, 24]">
+            <t-col :xxl="2" :xl="3" :xs="6">
+              <t-form-item label="收货人" name="id">
+                <t-input v-model="searchParameter.purchaseNumber" type="search"
+                  :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
+                  :style="{ minWidth: '134px' }" />
+              </t-form-item>
+            </t-col>
+            <t-col :xxl="2" :xl="3" :xs="6">
+              <t-form-item label="采购名称" name="name">
+                <t-input v-model="searchParameter.purchaseName" type="search"
+                  :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
+                  :style="{ minWidth: '134px' }" />
+              </t-form-item>
+            </t-col>
+
+            <t-col :xxl="2" :xl="3" :xs="6">
+              <t-form-item label="采购状态" name="status">
+                <t-select v-model="searchParameter.purchaseStatus" :options="statusList" placeholder="请选择采购状态"
+                  clearable></t-select>
+              </t-form-item>
+            </t-col>
+
+            <t-col :xxl="2" :xl="3" :xs="6">
+              <t-form-item label="创建时间" name="created_at">
+                <t-date-range-picker allow-input clearable :style="{ minWidth: '300px' }" />
+              </t-form-item>
+            </t-col>
+
+          </t-row>
+        </t-col>
+      </t-row>
+    </t-form>
+
+    <div class="table-container">
+      <t-table :data="data" :hide-sort-tips="true" :columns="COLUMNS" :row-keys="rowKey" :pagination="pagination"
+        @sort-change="sortChange" :selected-row-keys="selectedRowKeys" :hover="true" :loading="dataLoading"
+        :header-affixed-top="headerAffixedTop" @page-change="rehandlePageChange">
+      </t-table>
+    </div>
     <t-row>
       <t-col :span="12">
         <t-form ref="form" :data="uploadInfo" colon @submit="onSubmit">
@@ -18,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref,reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { FormProps, UploadProps } from 'tdesign-vue-next';
 
 const file = ref([]);
@@ -47,7 +90,7 @@ const onPre = () => {
 }
 
 const onSubmit = () => {
- console.log('提交了');
+  console.log('提交了');
 }
 
 </script>

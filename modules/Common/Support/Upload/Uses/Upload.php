@@ -113,6 +113,7 @@ abstract class Upload
             'type'         => $this->getUploadedFileMimeType(),
             'size'         => $this->getUploadedFileSize(),
             'originalName' => $this->getOriginName(),
+            'uploadTime'   => date('Y-m-d H:i:s',time()),
         ];
     }
 
