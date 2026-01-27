@@ -6,14 +6,14 @@
           <t-col :span="12">
             <t-row :gutter="[24, 24]">
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_number')" name="purchaseNumber">
+                <t-form-item label="采购单号" name="id">
                   <t-input v-model="searchParameter.purchaseNumber" type="search"
                     :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
                     :style="{ minWidth: '134px' }" />
                 </t-form-item>
               </t-col>
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_name')" name="purchaseName">
+                <t-form-item label="采购名称" name="name">
                   <t-input v-model="searchParameter.purchaseName" type="search"
                     :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
                     :style="{ minWidth: '134px' }" />
@@ -21,18 +21,15 @@
               </t-col>
 
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_name')" name="purchaseName">
-                  <t-input v-model="searchParameter.purchaseName" type="search"
-                    :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
-                    :style="{ minWidth: '134px' }" />
+                <t-form-item label="采购状态" name="status">
+                  <t-select v-model="searchParameter.purchaseStatus" :options="statusList" placeholder="请选择采购状态"
+                    clearable></t-select>
                 </t-form-item>
               </t-col>
 
               <t-col :xxl="2" :xl="3" :xs="6">
-                <t-form-item :label="t('pages.purchaseOrder.filterForm.purchase_name')" name="purchaseName">
-                  <t-input v-model="searchParameter.purchaseName" type="search"
-                    :placeholder="t('pages.purchaseOrder.filterForm.purchase_number_placeholder')"
-                    :style="{ minWidth: '134px' }" />
+                <t-form-item label="创建时间" name="created_at">
+                  <t-date-range-picker allow-input clearable :style="{ minWidth: '300px' }" />
                 </t-form-item>
               </t-col>
 
@@ -67,13 +64,14 @@ import { t } from '@/locales';
 import type { SortInfo, TableSort } from 'tdesign-vue-next';
 import { PageInfo, PrimaryTableCol, TableRowData, TableProps } from 'tdesign-vue-next';
 import { SearchParameter, ListResult } from "@/api/model/purchaseModel";
+import { c } from 'vite/dist/node/types.d-aGj9QkWt';
 
 const store = useSettingStore();
 
 const searchParameter: SearchParameter = reactive({
   purchaseNumber: '',
   purchaseName: '',
-  purchaseStatus: undefined,
+  purchaseStatus: '',
   purchaseStartedAt: '',
   purchaseEndedAt: '',
   page: 1,
@@ -81,6 +79,17 @@ const searchParameter: SearchParameter = reactive({
   sortBy: '',
   descending: false,
 });
+
+const statusList = [
+  // { label: '全部', value: 0 },
+  { label: '创建完毕', value: '1' },
+  { label: '运行中', value: '2' },
+  { label: '暂停中', value: '3' },
+  { label: '运行完毕', value: '4' },
+  { label: '作废', value: '5' },
+];
+
+
 
 
 /** 表格 **/
@@ -96,7 +105,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     colKey: 'purchase_name',
     fixed: 'left',
   },
-   {
+  {
     title: t('pages.purchaseOrder.table.created_at'),
     width: 160,
     ellipsis: true,

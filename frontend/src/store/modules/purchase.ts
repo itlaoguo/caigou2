@@ -1,55 +1,23 @@
 import { defineStore } from 'pinia';
 
-export interface BaseInfo {
-  enter_way: string
-  name: string
-  description: string
-}
-
-export interface UploadInfo {
-  file: string
-  path: string
-  url: string
-}
-
-export interface Product {
-  product_id: string
-  product_title: string
-  sku_id: string
-  sku_title: string
-  price: number
-  product_pic_url: string
-  purchaser_id: string
-  quantity: number
-  can_sell: number
-  address_detail: string
-  receiver: string
-  receiver_phone: string
-}
-
-interface CreatePurchaseOrder {
-  baseInfo: BaseInfo
-  uploadInfo: UploadInfo
-  productList: Product[]
-  is_finished: boolean
-}
+import { BaseInfo, UploadInfo, Product, CreatePurchaseOrder } from '@/api/model/purchaseModel';
 
 export const usePurchaseStore = defineStore('purchase', {
   state: () => {
     return {
       // 基本信息
-      baseInfo: Object.assign({
+      baseInfo: {
         enter_way: 'excel',
         name: '',
         description: ''
-      }),
+      } as BaseInfo,
 
-      // 上傳信息
-      uploadInfo: Object.assign({
+      // 上传信息
+      uploadInfo: {
         file: '',
         path: '',
         url: ''
-      }),
+      } as UploadInfo,
 
       // 商品信息
       productList: [] as Product[],
