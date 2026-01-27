@@ -1,0 +1,1 @@
+import{$ as t}from"./index-OLkvd68Y.js";const e={PurchaseList:"/get-purchase-list",ProjectList:"/get-project-list"};function s(){return t.get({url:e.PurchaseList})}function i(){return t.get({url:e.ProjectList})}export{i as a,s as g};

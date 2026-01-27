@@ -1,0 +1,1 @@
+import{d as o,u as s,c as a,o as t,b as n,f as r}from"./index-OLkvd68Y.js";const c={class:"login-header"},d=o({__name:"Header",setup(_){return s(),(i,e)=>(t(),a("header",c,e[0]||(e[0]=[n("div",{class:"operations-container"},null,-1)])))}}),l=r(d,[["__scopeId","data-v-b52579e5"]]);export{l as default};

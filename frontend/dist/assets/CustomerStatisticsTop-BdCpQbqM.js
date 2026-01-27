@@ -1,0 +1,1 @@
+import{f as c,h as e,e as a,o as n,w as r,a as o}from"./index-OLkvd68Y.js";const _={name:"customerStatisticsTop"};function p(f,i,m,d,u,l){const t=e("t-col"),s=e("t-row");return n(),a(s,{gutter:[16,16]},{default:r(()=>[o(t,{xs:4}),o(t,{xs:4}),o(t,{xs:4})]),_:1})}const w=c(_,[["render",p],["__scopeId","data-v-30ef8729"]]);export{w as default};
