@@ -1,0 +1,1 @@
+import{f as o,h as t,c,o as r,a as s}from"./index-OLkvd68Y.js";const n={},a={class:"tdesign-wrapper"};function _(d,p){const e=t("router-view");return r(),c("div",a,[s(e)])}const i=o(n,[["render",_],["__scopeId","data-v-91d74f0c"]]);export{i as default};

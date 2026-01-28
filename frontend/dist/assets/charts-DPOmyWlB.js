@@ -1,0 +1,1 @@
+import{d as s}from"./dayjs.min-Rb_lRoAu.js";function i(t=[],e=10){const n=[];if(t.length>0)for(let r=0;r<e;r++){const a=(new Date(t[1]).getTime()-new Date(t[0]).getTime())/e,o=new Date(t[0]).getTime()+a*r;n.push(s(o).format("YYYY-MM-DD"))}return n}function f(t=100){let e=Number((Math.random()*t).toFixed(0));return e<=1&&(e=1),e}export{f as a,i as g};

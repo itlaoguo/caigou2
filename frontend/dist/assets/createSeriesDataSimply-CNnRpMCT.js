@@ -1,0 +1,1 @@
+import{j as c,O as t,c3 as m,c5 as o}from"./installCanvasRenderer-jY-EmqBn.js";function S(a,e,n){e=c(e)&&{coordDimensions:e}||t({encodeDefine:a.getEncode()},e);var r=a.getSource(),s=m(r,e).dimensions,i=new o(s,a);return i.initData(r,n),i}export{S as c};

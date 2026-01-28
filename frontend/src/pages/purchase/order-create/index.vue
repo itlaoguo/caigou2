@@ -29,8 +29,6 @@ import BasicInfo from '../components/basicInfo.vue'
 import UploadInfo from '../components/uploadInfo.vue'
 import ProductList from '../components/productList.vue'
 
-import { PageInfo, PrimaryTableCol, TableRowData, TableProps } from 'tdesign-vue-next';
-
 let currentStep = ref(0);
 
 const next = () => {
