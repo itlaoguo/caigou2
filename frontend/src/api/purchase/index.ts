@@ -36,6 +36,13 @@ export function info(id: number) {
   });
 }
 
+export function parseExcel(parameters: SearchParameter) {
+  return request.get<ListResult>({
+    url: '/purchase/prepare',
+    params: parameters
+  });
+}
+
 
 
 

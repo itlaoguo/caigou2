@@ -96,7 +96,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     colKey: 'purchase_name',
     fixed: 'left',
   },
-   {
+  {
     title: t('pages.purchaseOrder.table.created_at'),
     width: 160,
     ellipsis: true,

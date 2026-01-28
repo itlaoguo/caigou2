@@ -61,29 +61,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { FormProps, UploadProps } from 'tdesign-vue-next';
 
-const file = ref([]);
-const autoUpload = ref(true);
-const theme = ref('file');
 
 const emits = defineEmits(['prev', 'next'])
 
 
-const uploadInfo: FormProps['data'] = reactive({
-  file: '',
-});
+onMounted(() => {
 
-const uploadInfoRules: FormProps['rules'] = {
-  file: [
-    {
-      required: true,
-      message: '请上传采购商品excel文件',
-      type: 'error',
-    },
-  ],
-};
+
+
+});
 
 const onPre = () => {
   emits('prev');

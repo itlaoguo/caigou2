@@ -13,8 +13,7 @@ class PurchaseOrderRequest extends Request
     {
         return [
             'number' => 'required',
-'name' => 'required',
-
+            'name' => 'required',
         ];
     }
 

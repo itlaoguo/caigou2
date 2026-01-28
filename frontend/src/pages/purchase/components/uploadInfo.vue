@@ -7,9 +7,8 @@
           <t-form-item label="上传采购商品excel文件" name="file">
             <t-space>
               <t-upload v-model="files" name="file" autoUpload :theme="display" draggable :multiple="false"
-                :action="uploadURL" :format-response="formatResponse" :allowUploadDuplicateFile="false"
-                :headers="headers" accept=".xlsx,.xls" :before-upload="beforeUpload" @success="handleUploadSuccess"
-                @fail="handleUploadFail" @select-change="handleSelectChange" @remove="handleRemove" />
+                :action="uploadURL" :allowUploadDuplicateFile="false" :headers="headers" accept=".xlsx,.xls"
+                @success="handleUploadSuccess" @fail="handleUploadFail" @remove="handleRemove" />
             </t-space>
           </t-form-item>
           <t-form-item label="">
@@ -154,84 +153,37 @@ const handleSelectChange = (files: File[], context: UploadSelectChangeContext) =
   }
 }
 
-// 格式化上传响应，用于处理错误情况
-const formatResponse = (res: any) => {
-  // 如果响应包含错误信息，返回错误对象
-  if (res && res.code) {
-    // code 10000 表示成功
-    if (res.code === 10000) {
-      return res.data;
-    }
-    // 其他 code 表示失败，返回错误信息
-    return {
-      error: res.message || '上传失败',
-      code: res.code
-    };
-  }
-  // 如果没有 code 字段，检查是否有 data
-  if (res && res.data) {
-    return res.data;
-  }
-  return res;
-};
 
 // 处理上传成功
 const handleUploadSuccess: UploadProps['onSuccess'] = (context) => {
-  // 检查响应是否包含错误
-  if (context?.response?.error) {
-    const errorMsg = context.response.error || '上传失败';
-    MessagePlugin.error(errorMsg);
+  console.log(context, '---------handleUploadSuccess-------------');
 
-    // 如果是认证失败（code 10001），系统会自动处理跳转登录
-    if (context.response.code === 10001) {
-      MessagePlugin.warning('认证失败，请重新登录');
-    } else if (context.response.code === 10003) {
-      MessagePlugin.warning('没有权限操作');
+  if (context.response && context.response.code === 10000) {
+    const responseData = context.response.data;
+
+    // 更新 uploadInfo 数据
+    uploadInfo.name = responseData.originalName || '';
+    uploadInfo.path = responseData.path || '';
+    uploadInfo.url = responseData.url || '';
+    uploadInfo.size = responseData.size || 0;
+    uploadInfo.uploadTime = responseData.uploadTime || new Date().toISOString();
+
+    // 更新文件列表中的文件信息
+    const index = files.value.findIndex(f => f.name === context.file.name);
+    if (index > -1) {
+      files.value[index].url = responseData.url || '';
+      files.value[index].status = 'success';
+      files.value[index].size = context.file.size || 0;
+      files.value[index].uploadTime = uploadInfo.uploadTime;
     }
 
-    // 清除文件列表中的失败文件
-    if (context.file) {
-      const index = files.value.findIndex(f => f.name === context.file?.name);
-      if (index > -1) {
-        files.value.splice(index, 1);
-      }
-    }
-    return;
+    MessagePlugin.success(`文件 ${context.file.name} 上传成功`);
+  } else {
+    // 上传失败，调用失败处理函数
+
+
   }
 
-  // 根据上传接口返回的数据更新 uploadInfo
-  if (context?.response?.data || context?.response) {
-    const data = context.response.data || context.response;
-    const originalFileSize = context.file?.size || (context.file?.raw as File)?.size;
-    const fileSize = originalFileSize || (data.size !== undefined ? data.size : 0);
-
-    const newUploadInfo: UploadInfo = {
-      name: context.file?.name || data.originalName || data.filename || '',
-      path: data.path || data.filename || '',
-      url: data.url || data.path || '',
-      size: fileSize
-    };
-
-    // 更新表单数据
-    Object.assign(uploadInfo, newUploadInfo);
-
-    // 更新 store（这会触发持久化）
-    purchaseStore.setUploadInfo(newUploadInfo);
-
-    // 更新文件列表显示
-    if (newUploadInfo.path || newUploadInfo.url) {
-      const fileUrl = newUploadInfo.url || newUploadInfo.path;
-      files.value = [{
-        name: newUploadInfo.name || context.file?.name || fileUrl.split('/').pop() || '已上传文件',
-        url: fileUrl,
-        status: 'success',
-        size: fileSize, // 文件大小（字节），TDesign 会自动格式化为 KB/MB 等
-        raw: context.file?.raw, // 保留原始文件对象
-      } as UploadFile];
-    }
-
-    MessagePlugin.success('文件上传成功');
-  }
 };
 
 // 处理上传失败

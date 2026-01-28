@@ -11,6 +11,21 @@ export interface ListResult {
   message: string;
 }
 
+export interface ProductListResult {
+  code: number;
+  data: {
+    items: Array<Product>,
+    currentPage: number,
+    lastPage: number,
+    pageSize: number,
+    total: number,
+    totalPage: number,
+  };
+  message: string;
+}
+
+
+
 export interface PurchaseOrderModel {
   id?: number;
   number?: string;

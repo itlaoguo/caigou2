@@ -55,13 +55,16 @@ class PurchaseOrder extends Model
         'address_detail',
         'receiver' ,
         'receiver_phone',
-        'status'
+        'purchase_order_id',
+        'status',
+        'error'
     ];
 
     /**
      * @var array
      */
     protected array $fields = [
+        'id',
         'purchase_id',
         'product_id',
         'product_title',
@@ -75,13 +78,16 @@ class PurchaseOrder extends Model
         'address_detail',
         'receiver' ,
         'receiver_phone',
-        'status'
+        'purchase_order_id',
+        'status',
+        'error'
     ];
 
     /**
      * @var array
      */
     protected array $form = [
+        'purchase_id',
         'product_id',
         'product_title',
         'sku_id',
@@ -93,7 +99,10 @@ class PurchaseOrder extends Model
         'can_sell',
         'address_detail',
         'receiver' ,
-        'receiver_phone'
+        'receiver_phone',
+        'purchase_order_id',
+        'status',
+        'error'
     ];
 
     /**
@@ -105,6 +114,7 @@ class PurchaseOrder extends Model
         'product_title'=>'like',
         'sku_id'=>'=',
         'sku_title'=>'like',
+        'purchase_order_id'=>'like',
     ];
 
     protected bool $isPaginate = true;
