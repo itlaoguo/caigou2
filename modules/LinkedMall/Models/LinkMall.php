@@ -1,24 +1,30 @@
 <?php
 
-namespace Modules\Purchase\Models;
+namespace Modules\LinkedMall\Models;
 
 use AlibabaCloud\SDK\Linkedmall\V20230930\Linkedmall;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\AddressInfo;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\CreatePurchaseOrderRequest;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\ListPurchaserShopsRequest;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\OrderPageQuery;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\OrderRenderProductDTO;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\ProductDTO;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\PurchaseOrderCreateCmd;
+use AlibabaCloud\SDK\Linkedmall\V20230930\Models\PurchaseOrderRenderQuery;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\QueryOrdersRequest;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\SplitPurchaseOrderRequest;
 use AlibabaCloud\Tea\Exception\TeaError;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use Catch\Exceptions\FailedException;
 use Darabonba\OpenApi\Models\Config;
 
 class LinkMall
 {
-
-
     private object $client;
     private object $runtime;
+    private string $endpoint;
 
     public function __construct()
     {
@@ -41,7 +47,7 @@ class LinkMall
 
 
     /**
-     * 获取采购店铺信息
+     * 获取采购店铺列表
      * @return array
      */
     public function getPurchaserShops($paramters){
@@ -99,43 +105,63 @@ class LinkMall
 
     /**
      * 渲染并拆单
-     * @return void
+     * @return mixed
      */
     public function renderAndSplitPurchaseOrder($parameters){
 
-        $splitPurchaseOrderRequest = SplitPurchaseOrderRequest::fromMap([
-            'body' => [
-                'buyerId'=> $parameters,
-                'deliveryAddress'=> [
+        $purchaseOrderRenderQueryProductListOrderRenderProductDTO0 = new OrderRenderProductDTO([
+            "quantity" => $parameters[5],
+            "purchaserId" => "PID2200006482",
+            "productId" => $parameters[1],
+            "skuId" => $parameters[3],
+        ]);
 
-                ],
-                'productList'=> '',
-                'extInfo'=> [],
+        $purchaseOrderRenderQueryAddressInfo = new AddressInfo([
+            "addressDetail" => $parameters[8],
+            "receiverPhone" => $parameters[7],
+            "receiver" => $parameters[6],
+        ]);
+
+        $purchaseOrderRenderQuery = new PurchaseOrderRenderQuery([
+            "buyerId" => $parameters[9]??"20251101",
+            "deliveryAddress" => $purchaseOrderRenderQueryAddressInfo,
+            "productList" => [
+                $purchaseOrderRenderQueryProductListOrderRenderProductDTO0
             ]
+        ]);
+
+        $splitPurchaseOrderRequest = new SplitPurchaseOrderRequest([
+            "body" => $purchaseOrderRenderQuery
         ]);
 
         $headers = [];
 
         try {
+
             // 复制代码运行请自行打印 API 的返回值
             $response = $this->client->splitPurchaseOrderWithOptions($splitPurchaseOrderRequest, $headers, $this->runtime);
-
-            $data = $response->toMap();
-            var_dump($data);
+            $data =Tea::merge($response->body);
+            return $data;
         }
         catch (Exception $error) {
-            if (!($error instanceof TeaError)) {
-                $error = new TeaError([], $error->getMessage(), $error->getCode(), $error);
-            }
 
             $errorData = [
-                'message' => $error->message ?? '未知错误',
-                'code' => $error->code ?? '未知错误码'
+                'message' => $error->getMessage() ?? '未知错误',
+                'code' => $error->getCode() ?? '未知错误码'
             ];
 
-            throw new \RuntimeException('LinkedMall API调用失败: ' . json_encode($errorData, JSON_UNESCAPED_UNICODE));
+            if ($error instanceof TeaError) {
+                $errorInfo = $error->getErrorInfo();
+                $errorData = [
+                    'message' => $errorInfo['data']['errorMessage'],
+                    'code' => $errorInfo['data']['errorCode'],
+                ];
+            }
+
+            throw new FailedException(json_encode($errorData, JSON_UNESCAPED_UNICODE));
         }
     }
+
 
     /**
      * 查询订单
@@ -167,14 +193,8 @@ class LinkMall
 
     }
 
-    /**
-     * 拆单并渲染采购单
-     * @param $parameters
-     * @return mixed
-     */
-    public function splitPurchaseOrder($parameters){
 
-    }
+
 
     /**
      * 创建采购单
@@ -182,6 +202,48 @@ class LinkMall
      * @return mixed
      */
     public function createPurchaseOrder($parameters){
+
+        $purchaseOrderCreateCmdProductListProductDTO0 = new ProductDTO([
+            "purchaserId" => "PID2200006482",
+            "quantity" => $parameters['quantity'],
+            "productId" => $parameters['product_id'],
+            "skuId" => $parameters['sku_id'],
+        ]);
+        $purchaseOrderCreateCmdAddressInfo = new AddressInfo([
+            "receiver" => $parameters['receiver'],
+            "receiverPhone" =>  $parameters['receiver_phone'],
+            "addressDetail" => $parameters['address_detail'],
+        ]);
+        $purchaseOrderCreateCmd = new PurchaseOrderCreateCmd([
+            "outerPurchaseOrderId" => date('Ymd',time()).$parameters['id'],
+            "buyerId" => $parameters['buyer_id']??"9527",
+            "deliveryAddress" => $purchaseOrderCreateCmdAddressInfo,
+            "productList" => [
+                $purchaseOrderCreateCmdProductListProductDTO0
+            ]
+        ]);
+
+        $createPurchaseOrderRequest = new CreatePurchaseOrderRequest([
+            "body" => $purchaseOrderCreateCmd
+        ]);
+        $headers = [];
+        try {
+            // 复制代码运行请自行打印 API 的返回值
+            $response = $this->client->createPurchaseOrderWithOptions($createPurchaseOrderRequest, $headers, $this->runtime);
+            return Tea::merge($response->body);
+        }
+        catch (Exception $error) {
+            if (!($error instanceof TeaError)) {
+                $error = new TeaError([], $error->getMessage(), $error->getCode(), $error);
+            }
+
+            $errorData = [
+                'message' => $error->message ?? '未知错误',
+                'code' => $error->code ?? '未知错误码'
+            ];
+
+            throw new FailedException('LinkedMall API调用失败: ' . json_encode($errorData, JSON_UNESCAPED_UNICODE));
+        }
 
     }
 
@@ -196,7 +258,6 @@ class LinkMall
             // 调用API并返回结果
             $response = $this->client->getPurchaseOrderStatus($purchaseOrderId);
             $data = Utils::toJSONString(Tea::merge($response->body));
-            var_dump($data);exit();
 
         }
         catch (\Exception $error) {
@@ -218,6 +279,15 @@ class LinkMall
             // 返回错误信息而不是直接var_dump
             throw new \RuntimeException('LinkedMall API调用失败: ' . json_encode($errorData, JSON_UNESCAPED_UNICODE));
         }
+
+    }
+
+    /**
+     * @param $parameters
+     * @return void
+     * @Desc: 查询订单列表
+     */
+    public function getOrders($parameters){
 
     }
 

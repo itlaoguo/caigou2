@@ -1,24 +1,26 @@
 <?php
 declare(strict_types=1);
 
-namespace Modules\Purchase\Http\Controllers;
+namespace Modules\LinkedMall\Http\Controllers;
 
 use Catch\Base\CatchController as Controller;
 use Catch\Exceptions\FailedException;
 use Modules\Permissions\Enums\MenuType;
-use Modules\Purchase\Models\Purchase;
-use Modules\Purchase\Models\PurchaseOrder;
+use Modules\LinkedMall\Models\Purchase;
+use Modules\LinkedMall\Models\PurchaseOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use Modules\LinkedMall\Models\LinkMall;
 
 
 class PurchaseOrderController extends Controller
 {
     public function __construct(
         protected readonly Purchase $purchaseModel,
-        protected readonly PurchaseOrder $model
+        protected readonly PurchaseOrder $purchaseOrderModel,
+        protected readonly LinkMall $linkMallModel
     ){}
 
     /**
@@ -48,7 +50,6 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
 
             $data = array_merge($request->only(['name','description']),['file' => $request->post('path')]);
@@ -58,9 +59,8 @@ class PurchaseOrderController extends Controller
                 foreach ($request->input('products') as $product) {
 
                     $product['purchase_id'] = $purchaseId;
-                    $this->model->create($product);
+                    $this->purchaseOrderModel->create($product);
                 }
-
             }
 
         }catch (FailedException $e){
@@ -68,17 +68,6 @@ class PurchaseOrderController extends Controller
             throw new FailedException($e->getMessage());
         }
 
-
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function render(Request $request)
-    {
-
-        return $this->model->renderAndSplitPurchaseOrder($request->all());
 
     }
 
@@ -148,6 +137,7 @@ class PurchaseOrderController extends Controller
     }
 
     /**
+     * 渲染采购单
      * @return mixed
      */
     public function renderAndSplitPurchaseOrder(Request $request){
@@ -241,11 +231,6 @@ class PurchaseOrderController extends Controller
 
     }
 
-    public function createPurchaseOrder(Request $request){
-
-
-    }
-
     /**
      * 解析Excel文件，跳过第一行，返回数组
      * 针对大数据量文件进行优化，使用流式读取和逐行处理
@@ -253,7 +238,7 @@ class PurchaseOrderController extends Controller
      * @param Request $request
      * @return array
      */
-    public function parseExcel($file)
+    private function parseExcel($file)
     {
         $file = public_path() . DIRECTORY_SEPARATOR . $file;
 //        $file = public_path() . DIRECTORY_SEPARATOR.'uploads\file\2025-11-17\20254VmmBZ3IX41763335428.xlsx';

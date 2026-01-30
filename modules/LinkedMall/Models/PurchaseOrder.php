@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Purchase\Models;
+namespace Modules\LinkedMall\Models;
 
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\AddressInfo;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Models\CreatePurchaseOrderRequest;
@@ -234,64 +234,6 @@ class PurchaseOrder extends Model
         }
     }
 
-    /**
-     * 渲染并拆单
-     * @return mixed
-     */
-    public function renderAndSplitPurchaseOrder($parameters){
-
-        $purchaseOrderRenderQueryProductListOrderRenderProductDTO0 = new OrderRenderProductDTO([
-            "quantity" => $parameters[5],
-            "purchaserId" => "PID2200006482",
-            "productId" => $parameters[1],
-            "skuId" => $parameters[3],
-        ]);
-
-        $purchaseOrderRenderQueryAddressInfo = new AddressInfo([
-            "addressDetail" => $parameters[8],
-            "receiverPhone" => $parameters[7],
-            "receiver" => $parameters[6],
-        ]);
-
-        $purchaseOrderRenderQuery = new PurchaseOrderRenderQuery([
-            "buyerId" => $parameters[9]??"20251101",
-            "deliveryAddress" => $purchaseOrderRenderQueryAddressInfo,
-            "productList" => [
-                $purchaseOrderRenderQueryProductListOrderRenderProductDTO0
-            ]
-        ]);
-
-        $splitPurchaseOrderRequest = new SplitPurchaseOrderRequest([
-            "body" => $purchaseOrderRenderQuery
-        ]);
-
-        $headers = [];
-
-        try {
-
-            // 复制代码运行请自行打印 API 的返回值
-            $response = $this->client->splitPurchaseOrderWithOptions($splitPurchaseOrderRequest, $headers, $this->runtime);
-            $data =Tea::merge($response->body);
-            return $data;
-        }
-        catch (Exception $error) {
-
-            $errorData = [
-                'message' => $error->getMessage() ?? '未知错误',
-                'code' => $error->getCode() ?? '未知错误码'
-            ];
-
-            if ($error instanceof TeaError) {
-               $errorInfo = $error->getErrorInfo();
-                $errorData = [
-                    'message' => $errorInfo['data']['errorMessage'],
-                    'code' => $errorInfo['data']['errorCode'],
-                ];
-            }
-
-            throw new FailedException(json_encode($errorData, JSON_UNESCAPED_UNICODE));
-        }
-    }
 
     /**
      * 创建采购单

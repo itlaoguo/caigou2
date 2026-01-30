@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Purchase\Providers;
+namespace Modules\LinkedMall\Providers;
 
 use Catch\CatchAdmin;
 use Catch\Providers\CatchModuleServiceProvider;
 
-class PurchaseServiceProvider extends CatchModuleServiceProvider
+class LinkedMallServiceProvider extends CatchModuleServiceProvider
 {
     /**
      * route path
@@ -15,6 +15,6 @@ class PurchaseServiceProvider extends CatchModuleServiceProvider
     public function moduleName(): string
     {
         // TODO: Implement path() method.
-        return 'purchase';
+        return 'linkedmall';
     }
 }

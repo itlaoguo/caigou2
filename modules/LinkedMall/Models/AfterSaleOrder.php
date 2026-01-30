@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Purchase\Models;
+namespace Modules\LinkedMall\Models;
 
 use Darabonba\OpenApi\Models\Config;
 use AlibabaCloud\SDK\Linkedmall\V20230930\Linkedmall;

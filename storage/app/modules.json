@@ -30,12 +30,12 @@
         "enable": true
     },
     {
-        "title": "采购管理",
-        "path": "purchase",
-        "keywords": "Purchase",
-        "description": "采购管理",
-        "name": "order",
-        "provider": "\\Modules\\Purchase\\Providers\\PurchaseServiceProvider",
+        "title": "LinkedMall采购管理",
+        "path": "linkedmall",
+        "keywords": "LinkedMall",
+        "description": "LinkedMall采购管理",
+        "name": "linkedmall",
+        "provider": "\\Modules\\LinkedMall\\Providers\\LinkedMallServiceProvider",
         "version": "1.0.0",
         "enable": true
     },

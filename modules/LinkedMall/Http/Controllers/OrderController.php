@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Modules\Purchase\Http\Controllers;
+namespace Modules\LinkedMall\Http\Controllers;
 
 use Catch\Base\CatchController as Controller;
-use Modules\Purchase\Models\PurchaseOrder;
+use Modules\LinkedMall\Models\PurchaseOrder;
 use Illuminate\Http\Request;
 
 
