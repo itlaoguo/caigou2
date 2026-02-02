@@ -6,7 +6,7 @@ namespace Modules\LinkedMall\Http\Controllers;
 use Catch\Base\CatchController as Controller;
 use Catch\Exceptions\FailedException;
 use Illuminate\Http\Request;
-
+use Modules\LinkedMall\Models\Shop;
 
 class ShopController extends Controller
 {
